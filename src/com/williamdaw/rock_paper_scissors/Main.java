@@ -1,6 +1,6 @@
 package com.williamdaw.rock_paper_scissors;
 
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Boolean.FALSE;
@@ -11,9 +11,10 @@ public class Main {
         String valid_guess = "SPR";
         int pc_wins = 0;
         int user_wins = 0;
-        int turns = 0;
 
-        while (turns < 3){
+        Map<String, Integer> win_lose_data = Map.of("RS", 1, "SR", 0, "PR", 1, "RP", 0, "SP", 1, "PS", 0);
+
+        while ((pc_wins < 2)&&(user_wins < 2)) {
             String input = "";
             boolean valid_input = FALSE;
             while (valid_input == FALSE) {
@@ -25,16 +26,12 @@ public class Main {
             int random_number = (int) (Math.random() * (3 + 1) - 1);
             String ai_choice = String.valueOf(valid_guess.toCharArray()[random_number]);
 
-            System.out.println(input);
-            System.out.println(ai_choice);
-
-            if (input.equals(ai_choice)) System.out.println("draw");
-            if ((input.equals("R"))&&(ai_choice.equals("S"))) { System.out.println("You win"); turns++; user_wins++; }
-            if ((input.equals("S"))&&(ai_choice.equals("R"))) { System.out.println("You lose"); turns++; pc_wins++; }
-            if ((input.equals("P"))&&(ai_choice.equals("R"))) { System.out.println("You win"); turns++; user_wins++; }
-            if ((input.equals("R"))&&(ai_choice.equals("P"))) { System.out.println("You lose"); turns++; pc_wins++; }
-            if ((input.equals("S"))&&(ai_choice.equals("P"))) { System.out.println("You win"); turns++; user_wins++; }
-            if ((input.equals("P"))&&(ai_choice.equals("S"))) { System.out.println("You lose"); turns++; pc_wins++; }
+            if (input.equals(ai_choice)) {
+                System.out.println("draw");
+                continue;
+            }
+            if (win_lose_data.get(input + ai_choice) == 1) System.out.println("You win"); else System.out.println("You lose");
+            if (win_lose_data.get(input + ai_choice) == 1) user_wins++; else pc_wins++;
         }
         System.out.print("You scored " + user_wins + " the computer scored " + pc_wins);
     }
