@@ -2,7 +2,6 @@ package com.williamdaw.rock_paper_scissors;
 
 import java.util.Map;
 import java.util.Scanner;
-
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
